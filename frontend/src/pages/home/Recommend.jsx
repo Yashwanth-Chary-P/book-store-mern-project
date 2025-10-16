@@ -9,16 +9,11 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useFetchAllBooksQuery } from "../../redux/features/books/booksApi.js";
 
 const Recommend = () => {
 
-    const [books, setBooks] = useState([]);
-
-    useEffect(() => {
-        fetch("books.json")
-        .then((res) => res.json())
-        .then((data) => setBooks(data));
-    }, []);
+  const { data: books = [] } = useFetchAllBooksQuery();
 
   return (
     <div className="py-16">
@@ -48,7 +43,7 @@ const Recommend = () => {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {books.length > 0 && books.slice(6,12).map((book) => (
+        {books.length > 0 && books.slice(8,12).map((book) => (
           <SwiperSlide key={book._id}>
             <BookCard book={book} />
           </SwiperSlide>
