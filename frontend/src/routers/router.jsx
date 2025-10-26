@@ -7,6 +7,7 @@ import CartPage from "../pages/books/CartPage.jsx"
 import CheckOutPage from "../pages/books/CheckOutPage.jsx";
 import SingleBook from "../pages/books/SingleBook.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
+import OrderPage from "../pages/books/orderPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,8 +19,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/order",
-        element: <div>Orders</div>,
+        path: "/orders",
+        element: <PrivateRoute><OrderPage /></PrivateRoute>,
       },
       {
         path: "/login",
