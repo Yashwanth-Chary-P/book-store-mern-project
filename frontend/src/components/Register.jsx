@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
 
   const [message, setMessage] = useState("");
+  const { registerUser, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -14,7 +17,25 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = async(data) => {
+      try {
+        await registerUser(data.email, data.password);
+        alert("User registered successfully!")
+      } catch (error) {
+        setMessage("Please provide a valid email and password") 
+        console.error(error);
+      }
+    }
+
+    const handleSignInWithGoogle = async() => {
+      try {
+        await signInWithGoogle();
+        navigate("/")
+      } catch (error) {
+        alert("Google sign in failed!") 
+        console.error(error);
+      }
+    }
 
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center ">
@@ -72,7 +93,7 @@ const Register = () => {
 
         {/* google sign in */}
         <div className="mt-4">
-          <button className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+          <button onClick={handleSignInWithGoogle} className="w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
             <FaGoogle className="mr-2" />
             Sign in with Google
           </button>

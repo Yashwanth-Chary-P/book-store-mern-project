@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AuthContext";
 
 const CheckOutPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -10,7 +11,7 @@ const CheckOutPage = () => {
     .reduce((acc, item) => acc + item.newPrice, 0)
     .toFixed(2);
 
-  const currentUser = true;
+  const { currentUser } = useAuth();
 
   const [isChecked, setIsChecked] = useState(false);
 

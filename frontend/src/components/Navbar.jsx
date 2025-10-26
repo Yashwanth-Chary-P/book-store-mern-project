@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext.jsx";
 import { CgMenuLeftAlt } from "react-icons/cg";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -22,7 +23,11 @@ const Navbar = () => {
 
   const cartItems = useSelector((state) => state.cart.cartItems);
 
-  const currentUser = false;
+  const { currentUser, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header className="max-w-screen-xl mx-auto px-4 py-6">
@@ -84,6 +89,15 @@ const Navbar = () => {
                       </Link>
                     </li>
                   ))}
+                  <li
+                    className="block px-4 py-2 text-sm hover:bg-gray-100"
+                    onClick={() => {
+                      handleLogout();
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    <button>Logout</button>
+                  </li>
                 </ul>
               </div>
             )}
