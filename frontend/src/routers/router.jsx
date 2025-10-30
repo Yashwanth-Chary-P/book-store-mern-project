@@ -8,6 +8,8 @@ import CheckOutPage from "../pages/books/CheckOutPage.jsx";
 import SingleBook from "../pages/books/SingleBook.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import OrderPage from "../pages/books/orderPage.jsx";
+import AdminRoute from "./AdminRoute.jsx";
+import AdminLogin from "../components/AdminLogin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,32 @@ const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: "/admin",
+    element: <AdminLogin />
+  },
+  {
+    path: "/dashboard",
+    element: <AdminRoute><div>Dashboard</div></AdminRoute>,
+    children:[
+      {
+        path: "",
+        element: <AdminRoute><div>Dashboard</div></AdminRoute>
+      },
+      {
+        path: "add-new-book",
+        element: <AdminRoute><div>Add New Book</div></AdminRoute>
+      },
+      {
+        path: "edit-book/:id",
+        element: <AdminRoute><div>Edit Book</div></AdminRoute>
+      },
+      {
+        path: "manage-books",
+        element: <AdminRoute><div>Manage Books</div></AdminRoute>
+      }
+    ]
+  }
 ]);
 
 export default router;
